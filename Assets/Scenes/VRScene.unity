@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.00001857949, g: 0.000000034632446, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5143,6 +5143,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Window (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 791138905534593045, guid: 75af5b605b644fd4e9ea9b95d2784635,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6225862921910431523, guid: 75af5b605b644fd4e9ea9b95d2784635,
         type: 3}
@@ -11616,7 +11621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0ba0f906b8e4840b55e553590bfde0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startState: {fileID: 0}
+  _startState: {fileID: 1861845354}
   _minigameStates: []
   hintGlowPrefab: {fileID: 4752204147569150229, guid: 804fffb28f245dd419eb0f3cfcb7c12e,
     type: 3}
@@ -13054,7 +13059,6 @@ MonoBehaviour:
   - {fileID: 1087981639}
   _timeInSeconds: 0
   _paperMaterial: {fileID: 2100000, guid: 282108e19647ce4478f1c73cc628c986, type: 2}
-  speechRecognizer: {fileID: 0}
 --- !u!114 &1318399758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13069,6 +13073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keywords:
   - keyword: Scarlet
+    isSaid: 1
     onRecognized:
       m_PersistentCalls:
         m_Calls:
@@ -16655,7 +16660,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1811639221
 Transform:
   m_ObjectHideFlags: 0
@@ -16663,14 +16668,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811639220}
-  m_LocalRotation: {x: -0.99339503, y: -0, z: -0, w: 0.11474479}
+  m_LocalRotation: {x: -0.23924357, y: 0.6509234, z: 0.22784689, w: 0.68348163}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2030805814}
   m_RootOrder: 46
-  m_LocalEulerAnglesHint: {x: -13.178, y: -180, z: 180}
+  m_LocalEulerAnglesHint: {x: -38.584, y: 87.205, z: 0}
 --- !u!114 &1811639222
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class SpeechKeyword 
 {
     [SerializeField] public string keyword;
+    public bool isSaid = false;
     [SerializeField]
     [Tooltip("Events to fire when matching keyword is found")]
     public UnityEvent onRecognized = new UnityEvent();

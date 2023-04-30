@@ -36,6 +36,7 @@ public class UnitySpeechRecognizer : MonoBehaviour
     {
         SpeechKeyword speechKeyword = keywordDict[args.text];
         speechKeyword.onRecognized.Invoke();
+        speechKeyword.isSaid = true;
         StringBuilder builder = new StringBuilder();
         builder.AppendFormat("{0} ({1}){2}", args.text, args.confidence, Environment.NewLine);
         builder.AppendFormat("\tTimestamp: {0}{1}", args.phraseStartTime, Environment.NewLine);

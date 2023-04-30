@@ -54,11 +54,19 @@ public class MinigameFSM : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void Start()
+
+    private void OnNetworkStarted ()
     {
 
         _minigameStates = GetComponentsInChildren<MinigameState>().ToList();
-        NextState();
+        ChangeState(_startState);
+    }
+
+    private void Start()
+    {
+       
+        NetworkManager.Singleton.OnServerStarted += OnNetworkStarted;
+        if (NetworkManager.Singleton.IsServer) OnNetworkStarted();
     }
 
     public void NextState()
@@ -76,6 +84,7 @@ public class MinigameFSM : MonoBehaviour
         {
             Debug.Log("No more states");
         }
+        Debug.Log("Moved to state:" + _currentState.GetType().ToString());
     }
 
     private void ChangeState(MinigameState pMinigameState)
