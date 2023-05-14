@@ -1,47 +1,54 @@
 
-using System;
 using System.Collections.Generic;
-using System.Text;
+using TMPro;
 using UnityEngine;
-#if !UNITY_ANDROID
-using UnityEngine.Windows.Speech;
-#endif
+using static SpeechRecognizerPlugin;
 
-public class UnitySpeechRecognizer : MonoBehaviour
+public class UnitySpeechRecognizer : MonoBehaviour, ISpeechRecognizerPlugin
 {
     [SerializeField]
-    //private string[] m_Keywords;
     private SpeechKeyword[] keywords;
-#if !UNITY_ANDROID
-    string[] keywordValues;
-    private KeywordRecognizer m_Recognizer;
-    Dictionary<string, SpeechKeyword> keywordDict = new();
-
-
+    private SpeechRecognizerPlugin plugin = null;
+    public TextMeshPro test;
     void Start()
     {
-        keywordValues = new string[keywords.Length];
-        for (int i = 0; i < keywords.Length; i++)
-        {
-            keywordValues[i] = keywords[i].keyword;
-            keywordDict.Add(keywords[i].keyword, keywords[i]);
-        }
-
-        m_Recognizer = new KeywordRecognizer(keywordValues, ConfidenceLevel.Low);
-        m_Recognizer.OnPhraseRecognized += OnPhraseRecognized;
-        m_Recognizer.Start();
+        plugin = SpeechRecognizerPlugin.GetPlatformPluginVersion(this.gameObject.name);
+        StartVoice();
     }
 
-    private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
+    public void StartVoice()
     {
-        SpeechKeyword speechKeyword = keywordDict[args.text];
-        speechKeyword.onRecognized.Invoke();
-        speechKeyword.isSaid = true;
-        StringBuilder builder = new StringBuilder();
-        builder.AppendFormat("{0} ({1}){2}", args.text, args.confidence, Environment.NewLine);
-        builder.AppendFormat("\tTimestamp: {0}{1}", args.phraseStartTime, Environment.NewLine);
-        builder.AppendFormat("\tDuration: {0} seconds{1}", args.phraseDuration.TotalSeconds, Environment.NewLine);
-        Debug.Log(builder.ToString());
+        plugin.SetContinuousListening(true);
+        plugin.SetMaxResultsForNextRecognition(1);
+        plugin.StartListening();
+        Debug.Log("voice started");
+        Debug.Log(Microphone.devices[0]);
     }
-#endif
+
+    public void OnError(string recognizedError)
+    {
+        Debug.Log(recognizedError);
+        if (test != null) test.text = recognizedError;
+    }
+
+    public void OnResult(string recognizedResult)
+    {
+        Debug.Log(recognizedResult);
+        recognizedResult.ToLower();
+        if(test != null) test.text = recognizedResult;
+        foreach (SpeechKeyword speechKeyword in keywords)
+        {
+            if (speechKeyword.keyword == recognizedResult)
+            {
+                if (speechKeyword.isSaid) continue;
+                speechKeyword.isSaid = true;
+                speechKeyword.onRecognized.Invoke();
+            }
+        }
+    }
+
+    private void OnDisable()
+    {
+        plugin.StopListening();
+    }
 }

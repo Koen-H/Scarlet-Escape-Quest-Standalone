@@ -20,6 +20,8 @@ public class NerworkProtocolManager : NetworkBehaviour
         }
     }
 
+
+
     private void Awake()
     {
         if (_instance == null) _instance = this;
@@ -61,5 +63,10 @@ public class NerworkProtocolManager : NetworkBehaviour
         CanvasManager.Instance.GetComponent<MobileCanvasFSM>().LoadState(MobileState.LOST);
     }
 
+    [ServerRpc]
+    public void SendSpeechServerRpc()
+    {
+        //Send speech to server
+    }
 
 }
